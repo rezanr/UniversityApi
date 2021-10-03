@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewData["Title"] = "apiSource";
+}
+
+
+<section id="block_content">
+    <div class="col-md-6 container">
+        <blockquote class="blockstyle">
+            @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model,
+Newtonsoft.Json.Formatting.Indented))
+            </blockquote>
+    </div>
+</section>

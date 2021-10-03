@@ -12,7 +12,7 @@ namespace UniversityApi.Controllers
 {
     public class UnversityController : Controller
     {
-        private AppicationDataContext appicationDataContext;
+        private readonly AppicationDataContext appicationDataContext;
 
         public UnversityController(AppicationDataContext context)
         {
@@ -25,21 +25,32 @@ namespace UniversityApi.Controllers
             ViewBag.unversities = result;
             return View();
         }
-
-        [HttpGet("api/add")]
-        public async Task<IActionResult> GetDataFromApi()
+        [HttpGet("api/get")]
+        public async Task<IActionResult> GetAsync()
         {
-            //Make a HTTPClient
-            var Client = new HttpClient();
-            var getRequest = await Client.GetAsync("http://universities.hipolabs.com/search?country=Denmark");
+            // Get data from public API and add to our database
+            var client = new HttpClient();
+            var getRequest = await client.GetAsync("http://universities.hipolabs.com/search?country=Denmark");
             var content = getRequest.Content.ReadAsStringAsync().Result;
-            var listOfUnversities = JsonConvert.DeserializeObject<List<Unversity>>(content);
-
-            appicationDataContext.unversities.AddRange(listOfUnversities);
+            var universtiesList = JsonConvert.DeserializeObject<List<Unversity>>(content);
+            appicationDataContext.unversities.AddRange(universtiesList);
             appicationDataContext.SaveChanges();
 
             return Ok("Database has been updated");
+        }
+
+        
+        public async Task<IActionResult> apiSource()
+        {
+            // Get data from public API
+            var client = new HttpClient();
+            var getRequest = await client.GetAsync("http://universities.hipolabs.com/search?country=Denmark");
+            var content = getRequest.Content.ReadAsStringAsync().Result;
+            var universtiesList = JsonConvert.DeserializeObject<List<Unversity>>(content);
+            return View(universtiesList);
 
         }
+
+
     }
 }

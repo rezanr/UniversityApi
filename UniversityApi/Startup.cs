@@ -26,6 +26,7 @@ namespace UniversityApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppicationDataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             //services.AddDbContext<AppicationDataContext>(options => options.UseSqlServer("Data source=LAPTOP-NTREJ1OI; initial catalog=Unversities; integrated security=true"));
             services.AddControllersWithViews();
         }

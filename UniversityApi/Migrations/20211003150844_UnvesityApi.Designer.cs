@@ -9,8 +9,8 @@ using UniversityApi.Data;
 namespace UniversityApi.Migrations
 {
     [DbContext(typeof(AppicationDataContext))]
-    [Migration("20211003122033_first")]
-    partial class first
+    [Migration("20211003150844_UnvesityApi")]
+    partial class UnvesityApi
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,7 @@ namespace UniversityApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Domain")
+                    b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

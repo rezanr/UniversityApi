@@ -9,7 +9,6 @@ namespace UniversityApi.Data
 {
     public class AppicationDataContext : DbContext
     {
-       
         public AppicationDataContext(DbContextOptions<AppicationDataContext> options)
             : base(options)
         {
