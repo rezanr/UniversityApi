@@ -18,6 +18,19 @@ namespace UniversityApi.Controllers
         {
             appicationDataContext = context;
         }
+        /*
+         * Before start the project, you should to run tow commands
+         * 1- ntityFrameworkCore\Add-Migration
+         * 2- ntityFrameworkCore\update-database
+         * 
+         * Database is now ready for plante datawq from api
+         * 
+         *  Run the appliction and click on link addToDB
+         *
+         * Click on Unversity list link for at see the result 
+         * 
+         */
+
         public IActionResult Index()
         {
             var result = appicationDataContext.unversities.ToList();
@@ -33,6 +46,7 @@ namespace UniversityApi.Controllers
             var getRequest = await client.GetAsync("http://universities.hipolabs.com/search?country=Denmark");
             var content = getRequest.Content.ReadAsStringAsync().Result;
             var universtiesList = JsonConvert.DeserializeObject<List<Unversity>>(content);
+            //Add data to own databse
             appicationDataContext.unversities.AddRange(universtiesList);
             appicationDataContext.SaveChanges();
 
